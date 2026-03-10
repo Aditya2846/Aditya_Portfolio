@@ -1,0 +1,83 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const About = () => {
+  return (
+    <section id="about" className="py-20 bg-white dark:bg-dark-200 transition-colors duration-300">
+      <div className="container mx-auto px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">About <span className="text-primary-500">Me</span></h2>
+          <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
+        </motion.div>
+
+        <div className="flex flex-col md:flex-row gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="w-full md:w-1/2 flex justify-center"
+          >
+            <div className="relative group max-w-sm w-full">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary-600 to-emerald-400 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+              <div className="relative aspect-square md:aspect-auto md:h-[400px] w-full rounded-2xl overflow-hidden glass border-2 border-white/20 dark:border-white/5 flex items-center justify-center bg-slate-100 dark:bg-dark-100">
+                <img 
+                  src="https://github.com/Aditya2846.png" 
+                  alt="Aditya Kumar" 
+                  className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="w-full md:w-1/2 space-y-6"
+          >
+            <h3 className="text-2xl font-semibold dark:text-white">
+              Hi, I'm Aditya Kumar. A <span className="text-primary-500">Computer Science</span> student and passionate developer.
+            </h3>
+            
+            <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+              I am pursuing my Bachelor of Technology in Computer Science and Engineering from Lovely Professional University. I love solving problems using strong foundation in Data Structures and Algorithms combined with a diverse tech stack spanning across ReactJS, NodeJS, MongoDB, and Python.
+            </p>
+            
+            <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+              Whether working on an AI-enabled Ticketing System or engineering a Precision Pesticide Identification Machine Learning model, I enjoy applying technical skills to create meaningful and impactful digital products. Let's create something truly spectacular together.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 pt-4">
+              <div className="glass p-4 rounded-xl text-center">
+                <h4 className="text-primary-500 font-bold text-3xl mb-1">5+</h4>
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Projects Built</p>
+              </div>
+              <div className="glass p-4 rounded-xl text-center">
+                <h4 className="text-primary-500 font-bold text-3xl mb-1">7.12</h4>
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">CGPA at LPU</p>
+              </div>
+              <div className="glass p-4 rounded-xl text-center">
+                <h4 className="text-primary-500 font-bold text-3xl mb-1">C &amp; Py</h4>
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">HackerRank Certified</p>
+              </div>
+              <div className="glass p-4 rounded-xl text-center">
+                <h4 className="text-primary-500 font-bold text-3xl mb-1">5+</h4>
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Certifications</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;
