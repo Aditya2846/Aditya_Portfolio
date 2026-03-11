@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-3' : 'bg-transparent py-5'}`}>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass py-3 shadow-lg shadow-black/5' : 'bg-transparent py-5'}`}>
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <Link to="home" smooth={true} duration={500} className="cursor-pointer text-2xl font-bold text-gradient">

@@ -42,7 +42,7 @@ const SocialIcon = ({ href, icon }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full glass flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300"
+    className="w-10 h-10 rounded-full glass flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary-500/20 transition-all duration-300"
   >
     {icon}
   </a>

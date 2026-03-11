@@ -9,11 +9,11 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          500: '#22c55e',
-          600: '#16a34a',
-          900: '#14532d',
+          50: 'rgb(var(--primary-50) / <alpha-value>)',
+          100: 'rgb(var(--primary-100, var(--primary-50)) / <alpha-value>)',
+          500: 'rgb(var(--primary-500) / <alpha-value>)',
+          600: 'rgb(var(--primary-600) / <alpha-value>)',
+          900: 'rgb(var(--primary-900) / <alpha-value>)',
         },
         dark: {
           100: '#1e293b',

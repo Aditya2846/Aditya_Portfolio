@@ -65,15 +65,48 @@ const Hero = () => {
 
       <div className="container mx-auto px-6 relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
         >
-          <h2 className="text-xl md:text-2xl text-primary-500 font-medium mb-4">Hello, World! I am</h2>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+          <motion.h2 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="text-xl md:text-2xl text-primary-500 font-medium mb-4"
+          >
+            Hello, World! I am
+          </motion.h2>
+          
+          <motion.h1 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+          >
             Aditya Kumar
-          </h1>
-          <h3 className="text-2xl md:text-4xl font-semibold text-slate-600 dark:text-slate-300 mb-8 h-12">
+          </motion.h1>
+          
+          <motion.h3 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="text-2xl md:text-4xl font-semibold text-slate-600 dark:text-slate-300 mb-8 h-12"
+          >
             I'm a{' '}
             <span className="text-gradient">
               <Typewriter
@@ -86,19 +119,33 @@ const Hero = () => {
                 delaySpeed={1000}
               />
             </span>
-          </h3>
-
-          <p className="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-10 leading-relaxed text-lg">
+          </motion.h3>
+          
+          <motion.p 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-10 leading-relaxed text-lg"
+          >
             I build exceptional and accessible digital experiences for the web.
             Passionate about transforming ideas into elegant, blazing-fast, and scalable applications.
-          </p>
-
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-12">
+          </motion.p>
+          
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-12"
+          >
             <Link
               to="projects"
               smooth={true}
               duration={500}
-              className="cursor-pointer px-8 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white transition-colors font-medium text-lg w-full sm:w-auto text-center"
+              className="cursor-pointer px-8 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white hover:scale-105 active:scale-95 transition-all font-medium text-lg w-full sm:w-auto text-center shadow-lg hover:shadow-primary-500/25"
             >
               View My Work
             </Link>
@@ -106,35 +153,46 @@ const Hero = () => {
               to="contact"
               smooth={true}
               duration={500}
-              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-medium text-lg w-full sm:w-auto text-center"
+              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:scale-105 active:scale-95 transition-all font-medium text-lg w-full sm:w-auto text-center"
             >
               Contact Me
             </Link>
-            <a
-              href="/Aditya_Kumar_CV_1.jpg"
-              target="_blank"
-              rel="noreferrer"
-              download="Aditya_Kumar_CV_1.jpg"
-              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-medium text-lg w-full sm:w-auto text-center inline-flex items-center justify-center gap-2"
+            <button
+              onClick={() => {
+                const viewLink = 'https://drive.google.com/file/d/1MhaIMKn5KZPEtmEYRM-ZbzucXeuPOCuX/view?usp=drive_link';
+                const downloadLink = 'https://drive.google.com/uc?export=download&id=1MhaIMKn5KZPEtmEYRM-ZbzucXeuPOCuX';
+                window.open(viewLink, '_blank');
+                setTimeout(() => window.location.href = downloadLink, 1000);
+              }}
+              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:scale-105 active:scale-95 transition-all font-medium text-lg w-full sm:w-auto text-center inline-flex items-center justify-center gap-2"
             >
-              <FiDownload size={18} /> CV (Version 1)
-            </a>
-            <a
-              href="/Aditya_Kumar_CV_2.jpg"
-              target="_blank"
-              rel="noreferrer"
-              download="Aditya_Kumar_CV_2.jpg"
-              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-medium text-lg w-full sm:w-auto text-center inline-flex items-center justify-center gap-2"
+              <FiDownload size={18} /> CV (V1)
+            </button>
+            <button
+              onClick={() => {
+                const viewLink = 'https://drive.google.com/file/d/1jAoyONxem3QWI5NAKMM3A_WeupRWGtH_/view?usp=drive_link';
+                const downloadLink = 'https://drive.google.com/uc?export=download&id=1jAoyONxem3QWI5NAKMM3A_WeupRWGtH_';
+                window.open(viewLink, '_blank');
+                setTimeout(() => window.location.href = downloadLink, 1000);
+              }}
+              className="cursor-pointer px-8 py-3 rounded-full border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:scale-105 active:scale-95 transition-all font-medium text-lg w-full sm:w-auto text-center inline-flex items-center justify-center gap-2"
             >
-              <FiDownload size={18} /> CV (Version 2)
-            </a>
-          </div>
-
-          <div className="flex items-center justify-center gap-6">
+              <FiDownload size={18} /> CV (V2)
+            </button>
+          </motion.div>
+          
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1 }
+            }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center justify-center gap-6"
+          >
             <SocialIcon href="https://github.com/Aditya2846" icon={<FiGithub />} />
             <SocialIcon href="https://www.linkedin.com/in/aditya-kumar-ak7671/" icon={<FiLinkedin />} />
             <SocialIcon href="mailto:kumaraaditya6318@gmail.com" icon={<FiMail />} />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -156,14 +214,16 @@ const Hero = () => {
 };
 
 const SocialIcon = ({ href, icon }) => (
-  <a
+  <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-2xl text-slate-500 hover:text-primary-500 hover:-translate-y-1 transition-all duration-300"
+    whileHover={{ y: -5, scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    className="text-2xl text-slate-500 hover:text-primary-500 transition-colors duration-300"
   >
     {icon}
-  </a>
+  </motion.a>
 );
 
 export default Hero;

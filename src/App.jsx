@@ -11,9 +11,17 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Modern Aurora Background */}
+      <div className="aurora-bg">
+        <div className="aurora-element aurora-1"></div>
+        <div className="aurora-element aurora-2"></div>
+        <div className="aurora-element aurora-3"></div>
+        <div className="absolute inset-0 bg-pattern-dots text-slate-900/5 dark:text-white/5"></div>
+      </div>
+
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Skills />

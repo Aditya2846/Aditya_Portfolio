@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiMail, FiMapPin, FiPhone, FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
 
@@ -58,43 +58,49 @@ const Contact = () => {
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
             className="w-full lg:w-1/3 space-y-8"
           >
-            <div className="glass p-6 rounded-2xl flex items-start gap-4">
-              <div className="p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-xl">
-                <FiMail size={24} />
-              </div>
-              <div>
-                <h4 className="text-xl font-semibold dark:text-white mb-1">Email</h4>
-                <a href="mailto:kumaraaditya6318@gmail.com" className="text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors block break-all">
-                  kumaraaditya6318@gmail.com
-                </a>
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-2xl flex items-start gap-4">
-              <div className="p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-xl">
-                <FiMapPin size={24} />
-              </div>
-              <div>
-                <h4 className="text-xl font-semibold dark:text-white mb-1">Location</h4>
-                <p className="text-slate-600 dark:text-slate-400">Phagwara, Punjab</p>
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-2xl flex items-start gap-4">
-              <div className="p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-xl">
-                <FiPhone size={24} />
-              </div>
-              <div>
-                <h4 className="text-xl font-semibold dark:text-white mb-1">Phone</h4>
-                <p className="text-slate-600 dark:text-slate-400">+91-7671874804</p>
-              </div>
-            </div>
+            {[
+              { icon: <FiMail size={24} />, title: 'Email', content: 'kumaraaditya6318@gmail.com', href: 'mailto:kumaraaditya6318@gmail.com' },
+              { icon: <FiMapPin size={24} />, title: 'Location', content: 'Phagwara, Punjab' },
+              { icon: <FiPhone size={24} />, title: 'Phone', content: '+91-7671874804' },
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, x: -30 },
+                  visible: { opacity: 1, x: 0 }
+                }}
+                whileHover={{ x: 10, transition: { duration: 0.2 } }}
+                className="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-transparent hover:border-primary-500 transition-all shadow-sm hover:shadow-md"
+              >
+                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-xl">
+                  {item.icon}
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold dark:text-white mb-1">{item.title}</h4>
+                  {item.href ? (
+                    <a href={item.href} className="text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors block break-all">
+                      {item.content}
+                    </a>
+                  ) : (
+                    <p className="text-slate-600 dark:text-slate-400">{item.content}</p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Contact Form */}
@@ -105,9 +111,9 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="w-full lg:w-2/3"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="glass p-8 rounded-3xl flex flex-col gap-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-8 rounded-3xl flex flex-col gap-6 border-t-4 border-primary-500 shadow-xl">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+                <motion.div whileFocus={{ y: -2 }}>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Name</label>
                   <input
                     type="text"
@@ -115,11 +121,11 @@ const Contact = () => {
                     name="from_name"
                     required
                     disabled={status === 'loading'}
-                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-shadow dark:text-white disabled:opacity-60"
+                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all dark:text-white disabled:opacity-60"
                     placeholder="John Doe"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div whileFocus={{ y: -2 }}>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Email</label>
                   <input
                     type="email"
@@ -127,13 +133,13 @@ const Contact = () => {
                     name="from_email"
                     required
                     disabled={status === 'loading'}
-                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-shadow dark:text-white disabled:opacity-60"
+                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all dark:text-white disabled:opacity-60"
                     placeholder="john@example.com"
                   />
-                </div>
+                </motion.div>
               </div>
 
-              <div>
+              <motion.div whileFocus={{ y: -2 }}>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Message</label>
                 <textarea
                   id="message"
@@ -141,38 +147,44 @@ const Contact = () => {
                   rows="5"
                   required
                   disabled={status === 'loading'}
-                  className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-shadow dark:text-white resize-none disabled:opacity-60"
+                  className="w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all dark:text-white resize-none disabled:opacity-60"
                   placeholder="How can I help you?"
                 ></textarea>
-              </div>
+              </motion.div>
 
               {/* Status Messages */}
-              {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 font-medium"
-                >
-                  <FiCheckCircle size={20} />
-                  Message sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
+              <AnimatePresence>
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="flex items-center gap-3 p-4 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 font-medium overflow-hidden"
+                  >
+                    <FiCheckCircle size={20} />
+                    Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
 
-              {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-medium"
-                >
-                  <FiAlertCircle size={20} />
-                  Failed to send. Please try again or email me directly.
-                </motion.div>
-              )}
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="flex items-center gap-3 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-medium overflow-hidden"
+                  >
+                    <FiAlertCircle size={20} />
+                    Failed to send. Please try again or email me directly.
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              <button
+              <motion.button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="py-4 px-8 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="py-4 px-8 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-bold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-primary-500/25"
               >
                 {status === 'loading' ? (
                   <>
@@ -187,7 +199,7 @@ const Contact = () => {
                 ) : (
                   <><FiSend size={18} /> Send Message</>
                 )}
-              </button>
+              </motion.button>
             </form>
           </motion.div>
         </div>

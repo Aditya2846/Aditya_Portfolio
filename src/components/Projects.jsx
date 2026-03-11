@@ -61,48 +61,88 @@ const Projects = () => {
           <div className="w-20 h-1 bg-primary-500 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {PROJECTS_DATA.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass rounded-2xl overflow-hidden group flex flex-col h-full"
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.95 },
+                visible: { opacity: 1, y: 0, scale: 1 }
+              }}
+              transition={{ duration: 0.6, type: 'spring' }}
+              whileHover={{ y: -10 }}
+              className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500"
             >
               <div className="relative overflow-hidden h-48 sm:h-64">
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-primary-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                <div className="absolute inset-0 bg-primary-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6">
                   {project.github && (
-                    <a href={project.github} target="_blank" rel="noreferrer" title="Source Code" className="p-3 bg-white dark:bg-dark-100 rounded-full text-slate-800 dark:text-white hover:-translate-y-1 transition-transform shadow-lg">
-                      <FiGithub size={20} />
-                    </a>
+                    <motion.a 
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      title="Source Code" 
+                      className="p-4 bg-white dark:bg-dark-100 rounded-full text-slate-800 dark:text-white shadow-xl"
+                    >
+                      <FiGithub size={22} />
+                    </motion.a>
                   )}
                   {project.demo && (
-                    <a href={project.demo} target="_blank" rel="noreferrer" title="Watch Demo Video" className="p-3 bg-white dark:bg-dark-100 rounded-full text-primary-500 hover:-translate-y-1 transition-transform shadow-lg">
-                      <FiVideo size={20} />
-                    </a>
+                    <motion.a 
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={project.demo} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      title="Watch Demo Video" 
+                      className="p-4 bg-white dark:bg-dark-100 rounded-full text-primary-500 shadow-xl"
+                    >
+                      <FiVideo size={22} />
+                    </motion.a>
                   )}
                   {project.live && (
-                    <a href={project.live} target="_blank" rel="noreferrer" title="Live Project" className="p-3 bg-primary-500 text-white rounded-full hover:-translate-y-1 transition-transform shadow-lg">
-                      <FiExternalLink size={20} />
-                    </a>
+                    <motion.a 
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={project.live} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      title="Live Project" 
+                      className="p-4 bg-primary-500 text-white rounded-full shadow-xl"
+                    >
+                      <FiExternalLink size={22} />
+                    </motion.a>
                   )}
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-bold mb-3 dark:text-white group-hover:text-primary-500 transition-colors">{project.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-grow">
+                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-grow leading-relaxed">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tags.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-sm rounded-full font-medium">
+                    <span key={i} className="px-3 py-1 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -110,7 +150,7 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

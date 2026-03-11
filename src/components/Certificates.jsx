@@ -239,16 +239,31 @@ const Certificates = () => {
         </motion.div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.15
+              }
+            }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {CERTIFICATES_DATA.map((cert, index) => (
             <motion.div
               key={cert.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="group glass rounded-2xl overflow-hidden cursor-pointer flex flex-col"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 0.5 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              className="group glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col border-b-2 border-transparent hover:border-primary-500 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-primary-500/5"
               onClick={() => setSelectedCert(cert)}
             >
               {/* Top gradient bar */}
@@ -258,9 +273,12 @@ const Certificates = () => {
               <div className="p-6 flex flex-col flex-grow">
                 {/* Icon + issuer */}
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`text-3xl w-14 h-14 flex items-center justify-center rounded-2xl ${cert.lightColor} flex-shrink-0`}>
+                  <motion.div 
+                    whileHover={{ rotate: 15 }}
+                    className={`text-3xl w-14 h-14 flex items-center justify-center rounded-2xl ${cert.lightColor} flex-shrink-0`}
+                  >
                     {cert.icon}
-                  </div>
+                  </motion.div>
                   <div>
                     <span className={`text-xs font-bold uppercase tracking-widest ${cert.textColor}`}>
                       {cert.issuerShort}
@@ -287,14 +305,17 @@ const Certificates = () => {
                   <span className={`text-xs font-semibold ${cert.textColor} ${cert.lightColor} px-3 py-1 rounded-full`}>
                     {cert.badge}
                   </span>
-                  <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1 group-hover:text-primary-500 transition-colors">
+                  <motion.span 
+                    whileHover={{ x: 3 }}
+                    className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1 group-hover:text-primary-500 transition-colors"
+                  >
                     View <FiExternalLink size={12} />
-                  </span>
+                  </motion.span>
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Modal */}
